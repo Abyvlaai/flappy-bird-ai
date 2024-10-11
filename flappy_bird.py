@@ -368,7 +368,8 @@ def eval_genomes(genomes, config):
             if len(pipes) > 1 and birds[0].x > pipes[0].x + pipes[0].PIPE_TOP.get_width():  # determine whether to use the first or second
                 pipe_ind = 1                                                                 # pipe on the screen for neural network input
 
-        for x, bird in enumerate(birds):  # give each bird a fitness of 0.1 for each frame it stays alive
+        "#21. for x, bird in enumerate(birds): geeft elke vogel een fitness van 0.1 voor elke frame die ze levend blijven"
+        for x, bird in enumerate(birds):  
             ge[x].fitness += 0.1
             bird.move()
 
@@ -393,7 +394,11 @@ def eval_genomes(genomes, config):
                     nets.pop(birds.index(bird))
                     ge.pop(birds.index(bird))
                     birds.pop(birds.index(bird))
-
+            """19. ge[birds.index(bird)].fitness -= 1 dit toevoegen zorgt ervoor dat elke keer wanneer een vogel een pijp raakt
+            dat er 1 van de fitness score af gaat dit is zodat de vogels die ver komen niet opeens tegen de pijpen aan gaan
+            kort gezegd leren de vogels die niet tegen de pijp aan gaanvan de vogels die wel tegen de pijpen aan zijn gebotst"
+            deze overgebleven vogels krijgen dus een hogere fitness score"""
+            
             if pipe.x + pipe.PIPE_TOP.get_width() < 0:
                 rem.append(pipe)
             
@@ -409,6 +414,8 @@ def eval_genomes(genomes, config):
             for genome in ge:
                 genome.fitness += 5
             pipes.append(Pipe(WIN_WIDTH))
+            "21. genome.fitness += 5 zorgt ervoor dat de vogels die door de pijpen heen gaan"
+            "steeds slimmer worden en dus niet dood gaan bij elk volgende level"
 
         for r in rem:
             pipes.remove(r)
@@ -420,6 +427,13 @@ def eval_genomes(genomes, config):
                 nets.pop(birds.index(bird))
                 ge.pop(birds.index(bird))
                 birds.pop(birds.index(bird))
+                
+            """
+            20. nets.pop(birds.index(bird))
+                ge.pop(birds.index(bird))
+                birds.pop(birds.index(bird)))
+                dit zorgt ervoor dat de vogels neurale netwerken en genomen worden weggehaald uit de index
+            """
 
 
 

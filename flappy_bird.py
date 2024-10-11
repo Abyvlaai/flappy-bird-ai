@@ -354,7 +354,7 @@ def eval_genomes(genomes, config):
 
     run = True
     while run and len(birds) > 0:
-        clock.tick(60)
+        clock.tick(100)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -443,7 +443,9 @@ def eval_genomes(genomes, config):
         '''if score > 20:
             pickle.dump(nets[0],open("best.pickle", "wb"))
             break'''
-
+        
+        if score > 25: 
+         run = False  
 
 def run(config_file):
     """

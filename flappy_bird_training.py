@@ -447,6 +447,8 @@ def eval_genomes(genomes, config):
 
         # break if score gets large enough
         if score > 25:
+            pickle.dump(nets[0],open("best.pickle", "wb"))
+            pickle.dump(genomes[0], open("best_genome.pickle","wb"))
             pygame.quit()
 
 def run(config_file):
